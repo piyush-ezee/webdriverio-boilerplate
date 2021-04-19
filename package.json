@@ -43,5 +43,8 @@
     "url": "https://github.com/jonyet/webdriverio-boilerplate.git"
   },
   "author": "jonathan terry",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@wdio/junit-reporter": "^7.4.2"
+  }
 }
