@@ -1,4 +1,9 @@
 const master = require('../../wdio.conf')
+var username = process.env.BROWSERSTACK_USERNAME;
+var accessKey = process.env.BROWSERSTACK_ACCESS_KEY;
+var buildName = process.env.BROWSERSTACK_BUILD_NAME;
+var browserstackLocal = process.env.BROWSERSTACK_LOCAL;
+var browserstackLocalIdentifier = process.env.BROWSERSTACK_LOCAL_IDENTIFIER
 
 exports.config = Object.assign(master.config, {
   baseUrl: 'https://www.amazon.com/',
@@ -9,13 +14,15 @@ exports.config = Object.assign(master.config, {
     integration: ['./examples/Amazon/Integration/**/*.test.js'],
     e2e: ['./examples/Amazon/E2E/*.test.js'],
   },
-  reporters: ['spec'],
+  reporters: ['spec', ['junit', {
+    outputDir: './'
+  }]],
   maxInstances: 6,
   services: ['browserstack'],
   capabilities: [
     {
       project: `Amazon Example`,
-      'browserstack.debug': true,
+      "browserstack.debug": "true",
       browser: 'chrome',
       'goog:chromeOptions': {
         args: ['disable-infobars'],
@@ -23,12 +30,15 @@ exports.config = Object.assign(master.config, {
       resolution: '1280x1024',
       os: 'Windows',
       os_version: '10',
-      'browserstack.geoLocation': 'US',
+      // 'browserstack.geoLocation': 'US',
       'browserstack.console': 'errors',
       'browserstack.networkLogs': true,
+      "build": buildName,
+      // "browserstack.local" : browserstackLocal,
+      // "browserstack.localIdentifier" : browserstackLocalIdentifier
     },
   ],
   //browserstack credentials
-  user: process.env.REMOTE_USER,
-  key: process.env.REMOTE_PASSWORD,
+  user: username,
+  key: accessKey,
 })
