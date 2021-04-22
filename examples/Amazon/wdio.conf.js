@@ -2,8 +2,8 @@ const master = require('../../wdio.conf')
 var username = process.env.BROWSERSTACK_USERNAME;
 var accessKey = process.env.BROWSERSTACK_ACCESS_KEY;
 var buildName = process.env.BROWSERSTACK_BUILD_NAME;
-var browserstackLocal = process.env.BROWSERSTACK_LOCAL;
-var browserstackLocalIdentifier = process.env.BROWSERSTACK_LOCAL_IDENTIFIER
+var browserstackLocal = process.env.BROWSERSTACK_LOCAL||true;
+var browserstackLocalIdentifier = process.env.BROWSERSTACK_LOCAL_IDENTIFIER||'';
 
 exports.config = Object.assign(master.config, {
   baseUrl: 'https://www.amazon.com/',
@@ -34,8 +34,8 @@ exports.config = Object.assign(master.config, {
       'browserstack.console': 'errors',
       'browserstack.networkLogs': true,
       "build": buildName,
-      // "browserstack.local" : browserstackLocal,
-      // "browserstack.localIdentifier" : browserstackLocalIdentifier
+      "browserstack.local" : browserstackLocal,
+      "browserstack.localIdentifier" : browserstackLocalIdentifier
     },
   ],
   //browserstack credentials
